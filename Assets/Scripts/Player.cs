@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -18,7 +19,8 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="targetPosition">The target position to move towards.</param>
     /// <param name="duration">The duration of the movement in seconds.</param>
-    public void MoveTo(Vector3 targetPosition, float duration = 0.5f)
+    /// <param name="callback">Optional callback function to invoke when the movement is complete.</param>
+    public void MoveTo(Vector3 targetPosition, float duration = 0.5f, Action callback = null)
     {
         if (moveCoroutine != null)
         {
@@ -26,10 +28,10 @@ public class Player : MonoBehaviour
             StopCoroutine(moveCoroutine);
         }
 
-        moveCoroutine = StartCoroutine(MoveCoroutine(targetPosition, duration));
+        moveCoroutine = StartCoroutine(MoveCoroutine(targetPosition, duration, callback));
     }
 
-    private IEnumerator MoveCoroutine(Vector3 targetPosition, float duration)
+    private IEnumerator MoveCoroutine(Vector3 targetPosition, float duration, Action callback)
     {
         var startPosition = transform.position;
 
@@ -66,6 +68,8 @@ public class Player : MonoBehaviour
 
         // Reset the moveCoroutine reference
         moveCoroutine = null;
+
+        callback?.Invoke();
     }
 }
 
