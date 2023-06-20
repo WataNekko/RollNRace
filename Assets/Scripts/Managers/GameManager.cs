@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    public HUD HUD;
+    public StatWindow StatWindow;
+
     private GameState _state;
     public GameState State
     {
@@ -22,10 +25,9 @@ public class GameManager : Singleton<GameManager>
                     NextPlayerTurn();
                     break;
                 case GameState.Ended:
-                    Debug.Log("Game ended:");
-                    Debug.Log("Scoreboard:" + Environment.NewLine +
-                        string.Join(Environment.NewLine,
-                            finishedPlayers.Select((p, i) => $"{i + 1}. {p.name}")));
+                    HUD.gameObject.SetActive(false);
+                    StatWindow.gameObject.SetActive(true);
+                    StatWindow.FillStat(finishedPlayers);
                     break;
             }
         }
@@ -35,7 +37,6 @@ public class GameManager : Singleton<GameManager>
 
     private Player[] players;
     private List<Player> finishedPlayers;
-    public int currentPlayerIndex;
     private IEnumerator<Player> playerTurn;
 
     public void InitGame()
@@ -128,7 +129,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         var player = CurrentPlayer;
-        HUD.Instance.TurnText.text = player.name + "'s turn";
+        HUD.TurnText.text = player.name + "'s turn";
 
         Dice.Instance.OnDiceRollingEnabled.Invoke();
         Dice.Instance.OnDiceRolled += HandleDiceRolled;
