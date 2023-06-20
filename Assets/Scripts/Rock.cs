@@ -33,6 +33,7 @@ public class Rock : MonoBehaviour
         {
             case RockType.Fail:
                 player.FailSectorCount++;
+                yield return new WaitForSeconds(.5f);
                 yield return player.MoveSteps(-3);
                 break;
             case RockType.Bonus:
