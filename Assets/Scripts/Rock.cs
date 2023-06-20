@@ -32,9 +32,11 @@ public class Rock : MonoBehaviour
         switch (Type)
         {
             case RockType.Fail:
+                player.FailSectorCount++;
                 yield return player.MoveSteps(-3);
                 break;
             case RockType.Bonus:
+                player.BonusSectorCount++;
                 player.CurrentTurnGain++;
                 break;
 
