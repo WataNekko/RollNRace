@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     /// </summary>
     [field: Header("Properties")]
     [field: SerializeField]
-    public int CurrentPosition { get; private set; } = 0;
+    public int CurrentPosition { get; private set; }
     /// <summary>
     /// Whether the player has finished the game
     /// </summary>
@@ -23,24 +23,24 @@ public class Player : MonoBehaviour
     /// The number of turns the player has played
     /// </summary>
     [field: SerializeField]
-    public int TurnCount { get; set; } = 0;
+    public int TurnCount { get; set; }
     /// <summary>
     /// The number of bonus sectors the player has entered
     /// </summary>
     [field: SerializeField]
-    public int BonusSectorCount { get; set; } = 0;
+    public int BonusSectorCount { get; set; }
     /// <summary>
     /// The number of fail sectors the player has entered
     /// </summary>
     [field: SerializeField]
-    public int FailSectorCount { get; set; } = 0;
+    public int FailSectorCount { get; set; }
     #endregion
 
 
     /// <summary>
     /// The current gain of turn of this player. E.g., CurrentTurnGain == 1 means the player have gained an extra turn, while CurrentTurnGain == -1 means the player have lost their next turn.
     /// </summary>
-    public int CurrentTurnGain = 0;
+    public int CurrentTurnGain;
 
     [Header("Movement")]
     [SerializeField]
@@ -50,6 +50,18 @@ public class Player : MonoBehaviour
 
 
     #region Methods
+
+    /// <summary>
+    /// Initialize the player's data to initial values
+    /// </summary>
+    public void Init()
+    {
+        CurrentPosition = 0;
+        TurnCount = 0;
+        BonusSectorCount = 0;
+        FailSectorCount = 0;
+        CurrentTurnGain = 0;
+    }
 
     /// <summary>
     /// A coroutine that moves the GameObject to the specified position over a given duration, with a little hopping animation.

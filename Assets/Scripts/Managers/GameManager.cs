@@ -45,6 +45,11 @@ public class GameManager : Singleton<GameManager>
         players = Players.Instance.GetComponentsInChildren<Player>();
         finishedPlayers = new List<Player>();
         playerTurn = PlayerTurnEnumerator();
+
+        foreach (var player in players)
+        {
+            player.Init();
+        }
     }
 
     private void GenerateRandomMap()
