@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 /// <summary>
 /// Represents a player GameObject in the game.
@@ -38,6 +37,10 @@ public class Player : MonoBehaviour
     #endregion
 
 
+    /// <summary>
+    /// The current gain of turn of this player. E.g., CurrentTurnGain == 1 means the player have gained an extra turn, while CurrentTurnGain == -1 means the player have lost their next turn.
+    /// </summary>
+    public int CurrentTurnGain = 0;
 
     [Header("Movement")]
     [SerializeField]

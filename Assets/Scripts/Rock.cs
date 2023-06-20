@@ -1,10 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(MeshFilter))]
 public class Rock : MonoBehaviour
 {
-    public const int FailBackwardStepCount = 3;
-
     [SerializeField]
     private RockType _type;
 
@@ -28,11 +27,15 @@ public class Rock : MonoBehaviour
 
     public IEnumerator ActivateEffectOnCurrentPlayer()
     {
+        var player = GameManager.Instance.CurrentPlayer;
+
         switch (Type)
         {
             case RockType.Fail:
-                var player = GameManager.Instance.CurrentPlayer;
-                yield return player.MoveSteps(-FailBackwardStepCount);
+                yield return player.MoveSteps(-3);
+                break;
+            case RockType.Bonus:
+                player.CurrentTurnGain++;
                 break;
 
         }
