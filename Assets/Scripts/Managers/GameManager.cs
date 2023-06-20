@@ -163,6 +163,14 @@ public class GameManager : Singleton<GameManager>
 
         NextPlayerTurn();
     }
+
+    public void Quit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
+    }
 }
 
 public enum GameState
