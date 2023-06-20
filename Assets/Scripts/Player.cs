@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -52,13 +53,14 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="targetPosition">The target position to move towards.</param>
     /// <param name="duration">The duration of the movement in seconds.</param>
-    public IEnumerator MoveTo(Vector3 targetPosition, float duration = 0.5f)
+    public IEnumerator MoveTo(Vector3 targetPosition, float duration = 0.5f, bool facingBackward = false)
     {
         var startPosition = transform.position;
 
         var startRotation = transform.rotation;
         var _lookingDir = targetPosition - transform.position;
         _lookingDir.y = 0f; // ignore y axis
+        if (facingBackward) _lookingDir *= -1;
         var targetRotation = Quaternion.LookRotation(_lookingDir);
 
         float elapsedTime = 0f;
@@ -90,19 +92,19 @@ public class Player : MonoBehaviour
 
     public IEnumerator MoveSteps(int steps)
     {
-        if (steps < 1)
-        {
-            yield break;
-        }
 
-        var prevPos = CurrentPosition;
-        CurrentPosition = Mathf.Min(CurrentPosition + steps, RockPath.Instance.Length - 1);
+        var from = CurrentPosition;
+        CurrentPosition = Mathf.Clamp(CurrentPosition + steps, 0, RockPath.Instance.Length - 1);
 
-        for (int i = prevPos + 1; i <= CurrentPosition; i++)
+        steps = CurrentPosition - from; // clamped step count
+        var range = steps >= 0 ?
+            Enumerable.Range(from + 1, steps) :
+            Enumerable.Range(from + steps, -steps).Reverse();
+        foreach (var i in range)
         {
             var pos = RockPath.Instance.GetRock(i).position;
             pos.y += 0.00225f; // offset to stand on top of the rock
-            yield return MoveTo(pos);
+            yield return MoveTo(pos, facingBackward: steps < 0);
         }
     }
 

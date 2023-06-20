@@ -6,23 +6,21 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    public Player CurrentPlayer { get; private set; } = null;
+
     [SerializeField]
     private Dice dice;
 
-    private Coroutine gameCoroutine;
+    private Player[] players;
+    private List<Player> finishedPlayers;
+    private int currentPlayerIndex;
 
-    private void Start()
+    public void InitGame()
     {
-        StartGame();
-    }
+        GenerateRandomMap();
 
-    public void StartGame()
-    {
-        if (gameCoroutine != null)
-        {
-            StopCoroutine(gameCoroutine);
-        }
-        gameCoroutine = StartCoroutine(GameCoroutine());
+        players = Players.Instance.GetComponentsInChildren<Player>();
+        finishedPlayers = new List<Player>();
     }
 
     private void GenerateRandomMap()
@@ -34,29 +32,37 @@ public class GameManager : Singleton<GameManager>
             rock.Type = UnityEngine.Random.value switch
             {
                 < .15f => RockType.Bonus,
-                < .30f => RockType.Fail,
+                < .70f => RockType.Fail,
                 _ => RockType.Normal
             };
         }
     }
 
+    private void Update()
+    {
+
+    }
+
+    private void Start()
+    {
+        InitGame();
+        StartCoroutine(GameCoroutine());
+    }
+
     private IEnumerator GameCoroutine()
     {
-        // Init
-        GenerateRandomMap();
-
-        var players = Players.Instance.GetComponentsInChildren<Player>();
-        var finishedPlayers = new List<Player>();
-
         // main game loop
         while (finishedPlayers.Count < players.Length)
         {
             foreach (var player in players.Where(p => !p.IsFinished))
             {
+                CurrentPlayer = player;
                 yield return PlayTurn(player);
                 if (player.IsFinished) finishedPlayers.Add(player);
             }
         }
+
+        CurrentPlayer = null;
 
         Debug.Log("Game ended:");
         Debug.Log("Scoreboard:" + Environment.NewLine +
@@ -81,7 +87,9 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Got a " + rolled);
 
         yield return player.MoveSteps(rolled);
-
         player.TurnCount++;
+
+        var rock = RockPath.Instance.GetRock(player.CurrentPosition).GetComponent<Rock>();
+        yield return rock.ActivateEffectOnCurrentPlayer();
     }
 }

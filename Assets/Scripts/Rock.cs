@@ -1,7 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class Rock : MonoBehaviour
 {
+    public const int FailBackwardStepCount = 3;
+
     [SerializeField]
     private RockType _type;
 
@@ -20,6 +23,18 @@ public class Rock : MonoBehaviour
                     GetComponent<MeshFilter>().sharedMesh = RockPath.Instance.FailMesh;
                     break;
             }
+        }
+    }
+
+    public IEnumerator ActivateEffectOnCurrentPlayer()
+    {
+        switch (Type)
+        {
+            case RockType.Fail:
+                var player = GameManager.Instance.CurrentPlayer;
+                yield return player.MoveSteps(-FailBackwardStepCount);
+                break;
+
         }
     }
 }
