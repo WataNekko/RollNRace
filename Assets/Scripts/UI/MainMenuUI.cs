@@ -5,4 +5,9 @@ public class MainMenuUI : Singleton<MainMenuUI>
     public void StartGame() => SceneManager.LoadScene("Gameplay");
 
     public void Quit() => GameManager.Instance.Quit();
+
+    private void Start()
+    {
+        GameManager.Instance.GenerateRandomMap();
+    }
 }

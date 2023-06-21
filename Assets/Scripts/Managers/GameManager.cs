@@ -49,7 +49,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    private void GenerateRandomMap()
+    public void GenerateRandomMap()
     {
         var rocks = RockPath.Instance.GetRocks();
         foreach (var rock in rocks)
