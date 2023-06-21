@@ -19,3 +19,16 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         Instance = this as T;
     }
 }
+
+/// <summary>
+/// Similar to <see cref="Singleton{T}"/> but is not destroyed on load
+/// </summary>
+/// <seealso cref="Singleton{T}"/>
+public abstract class PersistentSingleton<T> : Singleton<T> where T : MonoBehaviour
+{
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+    }
+}
