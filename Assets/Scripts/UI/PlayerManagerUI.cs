@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerManagerUI : Singleton<PlayerManagerUI>
 {
@@ -47,6 +48,10 @@ public class PlayerManagerUI : Singleton<PlayerManagerUI>
     public void RemovePlayer()
     {
         if (SelectedPlayer == null) return;
+
+        // minimum 2 players
+        if (PlayerManager.Instance.PlayerCount <= 2) return;
+
         Destroy(SelectedPlayer.Player.gameObject);
         Destroy(SelectedPlayer.gameObject);
         SelectedPlayer = null;

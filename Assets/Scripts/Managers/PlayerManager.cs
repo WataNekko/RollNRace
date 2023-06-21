@@ -9,10 +9,12 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public Player[] GetPlayers() => GetComponentsInChildren<Player>();
 
+    public int PlayerCount => transform.childCount;
+
     public Player AddPlayer()
     {
         var newPlayer = Instantiate(playerPrefab, transform);
-        newPlayer.name = "Player " + transform.childCount;
+        newPlayer.name = "Player " + PlayerCount;
         return newPlayer;
     }
 }

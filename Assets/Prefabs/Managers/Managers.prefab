@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66efceb442ab8be08bacf4c19f1701a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HUD: {fileID: 0}
-  StatWindow: {fileID: 0}
 --- !u!1 &9157834118380228869
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +142,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4162875935178697757, guid: b7006ba69dac0b840a2f44bfd37016f7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 36ef8bee3b1ec67449ff596ce8d00707, type: 2}
+    - target: {fileID: 4172155947974555665, guid: b7006ba69dac0b840a2f44bfd37016f7, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300002, guid: 799f653f08c90c94c8b0126557609836, type: 3}
     - target: {fileID: 5505955696252943532, guid: b7006ba69dac0b840a2f44bfd37016f7, type: 3}
       propertyPath: m_Name
       value: PlayerManager
