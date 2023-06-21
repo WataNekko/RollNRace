@@ -43,7 +43,7 @@ public class GameManager : Singleton<GameManager>
     {
         GenerateRandomMap();
 
-        players = Players.Instance.GetComponentsInChildren<Player>();
+        players = PlayerManager.Instance.GetPlayers();
         finishedPlayers = new List<Player>();
         playerTurn = PlayerTurnEnumerator();
 
@@ -55,7 +55,7 @@ public class GameManager : Singleton<GameManager>
 
     private void GenerateRandomMap()
     {
-        var rocks = RockPath.Instance.GetComponentsInChildren<Rock>();
+        var rocks = RockPath.Instance.GetRocks();
         foreach (var rock in rocks)
         {
             // assign rock type based on probability

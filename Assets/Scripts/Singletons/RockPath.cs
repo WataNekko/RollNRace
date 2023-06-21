@@ -8,4 +8,5 @@ public class RockPath : Singleton<RockPath>
     public Mesh FailMesh;
 
     public Transform GetRock(int index) => transform.GetChild(index);
+    public Rock[] GetRocks() => GetComponentsInChildren<Rock>();
 }
