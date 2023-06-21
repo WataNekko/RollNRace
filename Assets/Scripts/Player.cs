@@ -67,6 +67,8 @@ public class Player : MonoBehaviour
         BonusSectorCount = 0;
         FailSectorCount = 0;
         CurrentTurnGain = 0;
+
+        transform.position = GetRockPosition(0);
     }
 
     /// <summary>
@@ -123,10 +125,16 @@ public class Player : MonoBehaviour
             Enumerable.Range(from + steps, -steps).Reverse();
         foreach (var i in range)
         {
-            var pos = RockPath.Instance.GetRock(i).position;
-            pos.y += 0.00225f; // offset to stand on top of the rock
+            var pos = GetRockPosition(i);
             yield return MoveTo(pos, facingBackward: steps < 0);
         }
+    }
+
+    public Vector3 GetRockPosition(int index)
+    {
+        var pos = RockPath.Instance.GetRock(index).position;
+        pos.y += 0.00225f; // offset to stand on top of the rock
+        return pos;
     }
 
     #endregion
