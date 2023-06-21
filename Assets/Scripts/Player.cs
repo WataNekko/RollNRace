@@ -14,6 +14,12 @@ public class Player : MonoBehaviour
     /// </summary>
     [field: Header("Properties")]
     [field: SerializeField]
+    public MeshFilter MeshFilter { get; private set; }
+
+    [field: SerializeField]
+    public MeshRenderer MeshRenderer { get; private set; }
+
+    [field: SerializeField]
     public int CurrentPosition { get; private set; }
     /// <summary>
     /// Whether the player has finished the game
