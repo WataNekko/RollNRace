@@ -1,7 +1,10 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerEditorUI : Singleton<PlayerEditorUI>
 {
+    [SerializeField]
+    private TMP_InputField nameInput;
     [SerializeField]
     private Transform avatarSelectors;
     [SerializeField]
@@ -47,10 +50,17 @@ public class PlayerEditorUI : Singleton<PlayerEditorUI>
         }
     }
 
+    public string Name
+    {
+        get => PlayerManagerUI.Instance.SelectedPlayer.Player.name;
+        set => PlayerManagerUI.Instance.SelectedPlayer.SetName(value);
+    }
+
     public void Init()
     {
         var selectedPlayer = PlayerManagerUI.Instance.SelectedPlayer.Player;
 
+        // init avatar
         foreach (var ava in avatarSelectors
                 .GetComponentsInChildren<AvatarSelector>())
         {
@@ -61,6 +71,7 @@ public class PlayerEditorUI : Singleton<PlayerEditorUI>
             }
         }
 
+        // init avatar color
         foreach (var avaColor in avatarColorSelectors
                 .GetComponentsInChildren<AvatarColorSelector>())
         {
@@ -70,5 +81,8 @@ public class PlayerEditorUI : Singleton<PlayerEditorUI>
                 break;
             }
         }
+
+        // init name
+        nameInput.text = Name;
     }
 }
