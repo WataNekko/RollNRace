@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -156,24 +155,12 @@ public class GameManager : Singleton<GameManager>
         NextPlayerTurn();
     }
 
-    public void StartGame()
-    {
-        SceneManager.LoadScene("Gameplay");
-        State = GameState.Running;
-    }
-
     public void Quit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
-    }
-
-    public void BackToMainMenu()
-    {
-        SceneManager.LoadScene("Main_Menu");
-        State = GameState.Starting;
     }
 }
 

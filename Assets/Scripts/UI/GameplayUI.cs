@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayUI : Singleton<GameplayUI>
 {
@@ -7,4 +8,12 @@ public class GameplayUI : Singleton<GameplayUI>
 
     [field: SerializeField]
     public StatWindow StatWindow { get; private set; }
+
+    public void Quit() => GameManager.Instance.Quit();
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
+        GameManager.Instance.State = GameState.Starting;
+    }
 }
