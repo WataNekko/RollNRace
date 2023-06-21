@@ -9,16 +9,27 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     #region Properties
+
+    [field: Header("Properties")]
+    [SerializeField]
+    private MeshFilter meshFilter;
+    public Mesh Mesh
+    {
+        get => meshFilter.sharedMesh;
+        set => meshFilter.sharedMesh = value;
+    }
+
+    [SerializeField]
+    private MeshRenderer meshRenderer;
+    public Material Color
+    {
+        get => meshRenderer.sharedMaterial;
+        set => meshRenderer.sharedMaterial = value;
+    }
+
     /// <summary>
     /// The player's current position on the rock path (game board). From 0 to 36, 0 is the starting point before the 1st rock, 36 is the finishing point after the last rock.
     /// </summary>
-    [field: Header("Properties")]
-    [field: SerializeField]
-    public MeshFilter MeshFilter { get; private set; }
-
-    [field: SerializeField]
-    public MeshRenderer MeshRenderer { get; private set; }
-
     [field: SerializeField]
     public int CurrentPosition { get; private set; }
     /// <summary>

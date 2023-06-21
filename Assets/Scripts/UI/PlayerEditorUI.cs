@@ -64,7 +64,7 @@ public class PlayerEditorUI : Singleton<PlayerEditorUI>
         foreach (var ava in avatarSelectors
                 .GetComponentsInChildren<AvatarSelector>())
         {
-            if (selectedPlayer.MeshFilter.sharedMesh == ava.Mesh)
+            if (selectedPlayer.Mesh == ava.Mesh)
             {
                 SelectedAvatar = ava;
                 break;
@@ -75,7 +75,7 @@ public class PlayerEditorUI : Singleton<PlayerEditorUI>
         foreach (var avaColor in avatarColorSelectors
                 .GetComponentsInChildren<AvatarColorSelector>())
         {
-            if (selectedPlayer.MeshRenderer.sharedMaterial == avaColor.Color)
+            if (selectedPlayer.Color == avaColor.Color)
             {
                 SelectedAvatarColor = avaColor;
                 break;

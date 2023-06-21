@@ -20,8 +20,8 @@ public class PlayerSelector : MonoBehaviour
     {
         Player = player;
         playerName.text = Player.name;
-        meshFilter.sharedMesh = Player.MeshFilter.sharedMesh;
-        meshRenderer.sharedMaterial = Player.MeshRenderer.sharedMaterial;
+        meshFilter.sharedMesh = Player.Mesh;
+        meshRenderer.sharedMaterial = Player.Color;
     }
 
     private float lastClickTime = 0f;
@@ -43,13 +43,13 @@ public class PlayerSelector : MonoBehaviour
 
     public void SetAvatar(Mesh mesh)
     {
-        Player.MeshFilter.sharedMesh = mesh;
+        Player.Mesh = mesh;
         meshFilter.sharedMesh = mesh;
     }
 
     public void SetAvatarColor(Material material)
     {
-        Player.MeshRenderer.sharedMaterial = material;
+        Player.Color = material;
         meshRenderer.sharedMaterial = material;
     }
 

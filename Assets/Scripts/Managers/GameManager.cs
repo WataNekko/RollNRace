@@ -120,7 +120,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         var player = CurrentPlayer;
-        GameplayUI.Instance.HUD.TurnText.text = player.name + "'s turn";
+        GameplayUI.Instance.HUD.PlayerTurn = player;
 
         Dice.Instance.OnDiceRollingEnabled.Invoke();
         Dice.Instance.OnDiceRolled += HandleDiceRolled;
