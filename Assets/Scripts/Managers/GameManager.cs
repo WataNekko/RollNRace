@@ -1,14 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    public HUD HUD;
-    public StatWindow StatWindow;
-
     private GameState _state;
     public GameState State
     {
@@ -25,9 +22,9 @@ public class GameManager : Singleton<GameManager>
                     NextPlayerTurn();
                     break;
                 case GameState.Ended:
-                    HUD.gameObject.SetActive(false);
-                    StatWindow.gameObject.SetActive(true);
-                    StatWindow.FillStat(finishedPlayers);
+                    GameplayUI.Instance.HUD.gameObject.SetActive(false);
+                    GameplayUI.Instance.StatWindow.gameObject.SetActive(true);
+                    GameplayUI.Instance.StatWindow.FillStat(finishedPlayers);
                     break;
             }
         }
@@ -66,11 +63,6 @@ public class GameManager : Singleton<GameManager>
                 _ => RockType.Normal
             };
         }
-    }
-
-    private void Start()
-    {
-        State = GameState.Running;
     }
 
     private void Update()
@@ -129,7 +121,7 @@ public class GameManager : Singleton<GameManager>
         }
 
         var player = CurrentPlayer;
-        HUD.TurnText.text = player.name + "'s turn";
+        GameplayUI.Instance.HUD.TurnText.text = player.name + "'s turn";
 
         Dice.Instance.OnDiceRollingEnabled.Invoke();
         Dice.Instance.OnDiceRolled += HandleDiceRolled;
@@ -164,12 +156,24 @@ public class GameManager : Singleton<GameManager>
         NextPlayerTurn();
     }
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Gameplay");
+        State = GameState.Running;
+    }
+
     public void Quit()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("Main_Menu");
+        State = GameState.Starting;
     }
 }
 

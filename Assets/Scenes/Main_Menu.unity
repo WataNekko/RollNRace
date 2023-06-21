@@ -5798,7 +5798,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1605258862}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1867791321}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1605258862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7710,6 +7722,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3621306945233109983, guid: 46b0e4bc181a74d2394891f744c7f27d, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 2776347731228890213, guid: f6404face2fbbfe82a2f0668f168d466, type: 3}
     - target: {fileID: 9157834118380228869, guid: 46b0e4bc181a74d2394891f744c7f27d, type: 3}
       propertyPath: m_Name
       value: Managers
