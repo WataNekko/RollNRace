@@ -5,20 +5,25 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
-    public Player CurrentPlayer => playerTurn?.Current;
-
     private Player[] players;
     private List<Player> finishedPlayers;
     private IEnumerator<Player> playerTurn;
 
+    /// <summary>
+    /// Retrieves the current player.
+    /// </summary>
+    public Player CurrentPlayer => playerTurn?.Current;
+
+    /// <summary>
+    /// Starts the game by initializing the game and starting the first player's turn.
+    /// </summary>
     public void StartGame()
     {
         InitGame();
         NextPlayerTurn();
     }
 
-    public void InitGame()
+    private void InitGame()
     {
         GenerateRandomMap();
 
@@ -32,6 +37,9 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    /// <summary>
+    /// Generates a random map by assigning rock types based on probability.
+    /// </summary>
     public void GenerateRandomMap()
     {
         var rocks = RockPath.Instance.GetRocks();
@@ -48,9 +56,9 @@ public class GameManager : Singleton<GameManager>
     }
 
     /// <summary>
-    /// For getting the next player in turn.
+    /// Enumerator for getting the next player in turn.
     /// </summary>
-    /// <returns>Enumerator for getting the next player in turn</returns>
+    /// <returns>The enumerator for iterating through players' turns.</returns>
     private IEnumerator<Player> PlayerTurnEnumerator()
     {
         while (finishedPlayers.Count < players.Length)
@@ -124,6 +132,9 @@ public class GameManager : Singleton<GameManager>
         NextPlayerTurn();
     }
 
+    /// <summary>
+    /// Ends the game and displays the end game statistics.
+    /// </summary>
     public void EndGame()
     {
         GameplayUI.Instance.HUD.gameObject.SetActive(false);
@@ -131,6 +142,9 @@ public class GameManager : Singleton<GameManager>
         GameplayUI.Instance.StatWindow.FillStat(finishedPlayers);
     }
 
+    /// <summary>
+    /// Quits the application.
+    /// </summary>
     public void Quit()
     {
 #if UNITY_EDITOR
