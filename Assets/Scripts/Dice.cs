@@ -41,6 +41,9 @@ public class Dice : Singleton<Dice>
 
     private IEnumerator RollCoroutine()
     {
+        // reset transform
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
         transform.position = dropPoint.position;
 
         // randomize the dice throw
