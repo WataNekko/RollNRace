@@ -54,7 +54,7 @@ public class Dice : Singleton<Dice>
                 ForceMode.Impulse);
 
         // wait for the dice to stop moving
-        var timeout = Time.time + 15f; // 15-second timeout
+        var timeout = Time.time + 10f; // 10-second timeout
         yield return new WaitForSeconds(0.2f);
         yield return new WaitUntil(() => rb.velocity.magnitude == 0f ||
                 Time.time >= timeout);
