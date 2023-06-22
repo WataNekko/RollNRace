@@ -41,6 +41,7 @@ public class PlayerEditorUI : Singleton<PlayerEditorUI>
 
             PlayerManagerUI.Instance.SelectedPlayer.SetAvatarColor(value.Color);
 
+            // Apply the selected avatar color to all avatar selectors
             foreach (var ava in avatarSelectors
                     .GetComponentsInChildren<AvatarSelector>())
             {
@@ -50,12 +51,18 @@ public class PlayerEditorUI : Singleton<PlayerEditorUI>
         }
     }
 
+    /// <summary>
+    /// The name of the selected player.
+    /// </summary>
     public string Name
     {
         get => PlayerManagerUI.Instance.SelectedPlayer.Player.name;
         set => PlayerManagerUI.Instance.SelectedPlayer.SetName(value);
     }
 
+    /// <summary>
+    /// Initializes the player editor with the selected player's settings.
+    /// </summary>
     public void Init()
     {
         var selectedPlayer = PlayerManagerUI.Instance.SelectedPlayer.Player;

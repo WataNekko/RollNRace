@@ -16,6 +16,11 @@ public class PlayerSelector : MonoBehaviour
 
     public Player Player { get; private set; }
 
+    /// <summary>
+    /// Initializes and link the player selector to the provided player object.
+    /// </summary>
+    /// <param name="player">The player to link to</param>
+
     public void Init(Player player)
     {
         Player = player;
@@ -28,6 +33,9 @@ public class PlayerSelector : MonoBehaviour
     // the maximum delay between clicks
     private float doubleClickDelay = 0.3f;
 
+    /// <summary>
+    /// Handles the click event on the player selector.
+    /// </summary>
     public void HandleClick()
     {
         PlayerManagerUI.Instance.SelectedPlayer = this;
@@ -41,18 +49,30 @@ public class PlayerSelector : MonoBehaviour
         lastClickTime = Time.time;
     }
 
+    /// <summary>
+    /// Sets the avatar mesh for the associated player.
+    /// </summary>
+    /// <param name="mesh">The new avatar mesh</param>
     public void SetAvatar(Mesh mesh)
     {
         Player.Mesh = mesh;
         meshFilter.sharedMesh = mesh;
     }
 
+    /// <summary>
+    /// Sets the avatar color for the associated player.
+    /// </summary>
+    /// <param name="material">The new avatar color material</param>
     public void SetAvatarColor(Material material)
     {
         Player.Color = material;
         meshRenderer.sharedMaterial = material;
     }
 
+    /// <summary>
+    /// Sets the name for the associated player.
+    /// </summary>
+    /// <param name="name">The new name</param>
     public void SetName(string name)
     {
         Player.name = name;

@@ -10,6 +10,10 @@ public class StatWindow : MonoBehaviour
     [SerializeField]
     private Image row;
 
+    /// <summary>
+    /// Fills the stat window with the provided player data.
+    /// </summary>
+    /// <param name="players">The players to display stats for</param>
     public void FillStat(IEnumerable<Player> players)
     {
         // clear children
@@ -19,13 +23,11 @@ public class StatWindow : MonoBehaviour
         }
 
         // fill content
-        float totalHeight = 0f;
         bool lightBg = true; // for alternating background color
         int i = 1;
         foreach (var player in players)
         {
             var img = Instantiate(row, contentPanel);
-            totalHeight += row.GetComponent<RectTransform>().rect.height;
 
             SetStatRowText(img.transform, i, player);
 
@@ -40,10 +42,6 @@ public class StatWindow : MonoBehaviour
 
             i++;
         }
-
-        // set height for the scroll view port
-        var tf = contentPanel.GetComponent<RectTransform>();
-        tf.sizeDelta = new Vector2(tf.sizeDelta.x, totalHeight);
     }
 
     private void SetStatRowText(Transform row, int index, Player player)

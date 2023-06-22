@@ -12,6 +12,9 @@ public class HUD : MonoBehaviour
     [SerializeField]
     private MeshRenderer turnMeshRenderer;
 
+    /// <summary>
+    /// Sets the player turn information in the HUD.
+    /// </summary>
     public Player PlayerTurn
     {
         set
@@ -33,6 +36,9 @@ public class HUD : MonoBehaviour
         StartCoroutine(DisplayDiceResult(rolledValue));
     }
 
+    /// <summary>
+    /// Display the dice rolled result in the HUD.
+    /// </summary>
     private IEnumerator DisplayDiceResult(int rolledValue)
     {
         diceImage.overrideSprite = diceSprites[rolledValue - 1];

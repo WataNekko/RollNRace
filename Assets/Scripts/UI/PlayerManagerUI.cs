@@ -22,6 +22,11 @@ public class PlayerManagerUI : Singleton<PlayerManagerUI>
     [SerializeField]
     private PlayerSelector playerSelectorPrefab;
 
+    /// <summary>
+    /// Adds a player to the player edit list in the UI.
+    /// </summary>
+    /// <param name="player">The player to add</param>
+    /// <returns>The created PlayerSelector component</returns>
     private PlayerSelector AddPlayerToEditList(Player player)
     {
         var p = Instantiate(playerSelectorPrefab, chooserContent);
@@ -31,6 +36,7 @@ public class PlayerManagerUI : Singleton<PlayerManagerUI>
 
     private void Start()
     {
+        // Add existing players to the edit list
         foreach (var player in PlayerManager.Instance.GetPlayers())
         {
             AddPlayerToEditList(player);
@@ -39,12 +45,18 @@ public class PlayerManagerUI : Singleton<PlayerManagerUI>
 
     public UnityEvent OnEditPlayer;
 
+    /// <summary>
+    /// Triggers the event to edit the selected player.
+    /// </summary>
     public void EditPlayer()
     {
         if (SelectedPlayer == null) return;
         OnEditPlayer.Invoke();
     }
 
+    /// <summary>
+    /// Removes the selected player from the game.
+    /// </summary>
     public void RemovePlayer()
     {
         if (SelectedPlayer == null) return;
@@ -66,6 +78,9 @@ public class PlayerManagerUI : Singleton<PlayerManagerUI>
         SelectedPlayer = nextSelected.GetComponent<PlayerSelector>();
     }
 
+    /// <summary>
+    /// Adds a new player to the game.
+    /// </summary>
     public void AddPlayer()
     {
         var newPlayer = PlayerManager.Instance.AddPlayer();
