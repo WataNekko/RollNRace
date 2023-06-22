@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.066537626, g: 0.59050596, b: 0, a: 1}
+  m_Color: {r: 0.06464203, g: 0.7213929, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -777,6 +777,14 @@ PrefabInstance:
     - target: {fileID: 281649427045268489, guid: 46b0e4bc181a74d2394891f744c7f27d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2047938488467978822, guid: 46b0e4bc181a74d2394891f744c7f27d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.519
+      objectReference: {fileID: 0}
+    - target: {fileID: 5960291576912231382, guid: 46b0e4bc181a74d2394891f744c7f27d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.519
       objectReference: {fileID: 0}
     - target: {fileID: 9157834118380228869, guid: 46b0e4bc181a74d2394891f744c7f27d, type: 3}
       propertyPath: m_Name
@@ -3841,6 +3849,10 @@ PrefabInstance:
     - target: {fileID: 4137582535320229327, guid: 2649d142785dfaf0f898cb79535b7c18, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5220189687119125569, guid: 2649d142785dfaf0f898cb79535b7c18, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.02158
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
