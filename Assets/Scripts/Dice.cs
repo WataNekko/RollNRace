@@ -14,6 +14,9 @@ public class Dice : Singleton<Dice>
 
     private Coroutine rollCoroutine;
 
+    /// <summary>
+    /// Rolls the dice and triggers the OnDiceRolled event with the rolled value.
+    /// </summary>
     public void Roll()
     {
         OnDiceRollingDisabled.Invoke();
@@ -35,9 +38,9 @@ public class Dice : Singleton<Dice>
     }
 
     [SerializeField]
-    private float MaxRandomTorque = 10;
+    private float maxRandomTorque = 10;
     [SerializeField]
-    private float MaxRandomForce = 30;
+    private float maxRandomForce = 30;
 
     private IEnumerator RollCoroutine()
     {
@@ -48,9 +51,9 @@ public class Dice : Singleton<Dice>
 
         // randomize the dice throw
         transform.rotation = UnityEngine.Random.rotation;
-        rb.AddTorque(MaxRandomTorque * UnityEngine.Random.insideUnitSphere,
+        rb.AddTorque(maxRandomTorque * UnityEngine.Random.insideUnitSphere,
                 ForceMode.Impulse);
-        rb.AddForce(MaxRandomForce * UnityEngine.Random.insideUnitSphere,
+        rb.AddForce(maxRandomForce * UnityEngine.Random.insideUnitSphere,
                 ForceMode.Impulse);
 
         // wait for the dice to stop moving
@@ -63,6 +66,10 @@ public class Dice : Singleton<Dice>
         OnDiceRolled?.Invoke(rolledValue);
     }
 
+    /// <summary>
+    /// Retrieves the current up side of the dice.
+    /// </summary>
+    /// <returns>The current side up.</returns>
     private int GetUpSide()
     {
         // check the face up by using cross and dot products

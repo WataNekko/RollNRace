@@ -6,7 +6,6 @@ public class Rock : MonoBehaviour
 {
     [SerializeField]
     private RockType _type;
-
     public RockType Type
     {
         get => _type;
@@ -25,6 +24,9 @@ public class Rock : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Activates the effect of the rock on the current player.
+    /// </summary>
     public IEnumerator ActivateEffectOnCurrentPlayer()
     {
         var player = GameManager.Instance.CurrentPlayer;
@@ -40,7 +42,6 @@ public class Rock : MonoBehaviour
                 player.BonusSectorCount++;
                 player.CurrentTurnGain++;
                 break;
-
         }
     }
 }

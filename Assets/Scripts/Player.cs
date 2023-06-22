@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// Represents a player GameObject in the game.
+/// Represents a player entity in the game.
 /// </summary>
 public class Player : MonoBehaviour
 {
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
     #region Methods
 
     /// <summary>
-    /// Initialize the player's data to initial values
+    /// Initialize the player's data to initial values.
     /// </summary>
     public void Init()
     {
@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
     /// </summary>
     /// <param name="targetPosition">The target position to move towards.</param>
     /// <param name="duration">The duration of the movement in seconds.</param>
+    /// <param name="facingBackward">Whether the player should face backward during the movement. This is for the fail sectors that push the player back.</param>
     public IEnumerator MoveTo(Vector3 targetPosition, float duration = 0.5f, bool facingBackward = false)
     {
         var startPosition = transform.position;
@@ -124,11 +125,15 @@ public class Player : MonoBehaviour
         transform.rotation = targetRotation;
     }
 
+    /// <summary>
+    /// Moves the player by a specific number of steps on the rock path.
+    /// </summary>
+    /// <param name="steps">The number of steps to move.</param>
     public IEnumerator MoveSteps(int steps)
     {
-
         var from = CurrentPosition;
-        CurrentPosition = Mathf.Clamp(CurrentPosition + steps, 0, RockPath.Instance.Length - 1);
+        CurrentPosition = Mathf.Clamp(CurrentPosition + steps,
+                0, RockPath.Instance.Length - 1);
 
         steps = CurrentPosition - from; // clamped step count
         var range = steps >= 0 ?
@@ -141,6 +146,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Gets the world position of the rock at the specified index.
+    /// </summary>
+    /// <param name="index">The index of the rock.</param>
+    /// <returns>The world position of the rock.</returns>
     public Vector3 GetRockPosition(int index)
     {
         var pos = RockPath.Instance.GetRock(index).position;
