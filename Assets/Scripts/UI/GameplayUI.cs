@@ -11,9 +11,5 @@ public class GameplayUI : Singleton<GameplayUI>
 
     public void Quit() => GameManager.Instance.Quit();
 
-    public void BackToMainMenu()
-    {
-        SceneManager.LoadScene("Main_Menu");
-        GameManager.Instance.State = GameState.Starting;
-    }
+    public void BackToMainMenu() => SceneManager.LoadScene("Main_Menu");
 }

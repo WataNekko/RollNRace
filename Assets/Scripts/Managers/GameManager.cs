@@ -5,35 +5,18 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    private GameState _state;
-    public GameState State
-    {
-        get => _state;
-        set
-        {
-            if (_state == value) return;
-
-            _state = value;
-            switch (_state)
-            {
-                case GameState.Running:
-                    InitGame();
-                    NextPlayerTurn();
-                    break;
-                case GameState.Ended:
-                    GameplayUI.Instance.HUD.gameObject.SetActive(false);
-                    GameplayUI.Instance.StatWindow.gameObject.SetActive(true);
-                    GameplayUI.Instance.StatWindow.FillStat(finishedPlayers);
-                    break;
-            }
-        }
-    }
 
     public Player CurrentPlayer => playerTurn?.Current;
 
     private Player[] players;
     private List<Player> finishedPlayers;
     private IEnumerator<Player> playerTurn;
+
+    public void StartGame()
+    {
+        InitGame();
+        NextPlayerTurn();
+    }
 
     public void InitGame()
     {
@@ -61,17 +44,6 @@ public class GameManager : Singleton<GameManager>
                 < .30f => RockType.Fail,
                 _ => RockType.Normal
             };
-        }
-    }
-
-    private void Update()
-    {
-        switch (State)
-        {
-            case GameState.Running:
-                break;
-            case GameState.Ended:
-                break;
         }
     }
 
@@ -115,7 +87,7 @@ public class GameManager : Singleton<GameManager>
         {
             // every player finished
             playerTurn = null; // reset iterator
-            State = GameState.Ended;
+            EndGame();
             return;
         }
 
@@ -152,6 +124,13 @@ public class GameManager : Singleton<GameManager>
         NextPlayerTurn();
     }
 
+    public void EndGame()
+    {
+        GameplayUI.Instance.HUD.gameObject.SetActive(false);
+        GameplayUI.Instance.StatWindow.gameObject.SetActive(true);
+        GameplayUI.Instance.StatWindow.FillStat(finishedPlayers);
+    }
+
     public void Quit()
     {
 #if UNITY_EDITOR
@@ -159,11 +138,4 @@ public class GameManager : Singleton<GameManager>
 #endif
         Application.Quit();
     }
-}
-
-public enum GameState
-{
-    Starting,
-    Running,
-    Ended
 }
