@@ -126,14 +126,11 @@ public class GameManager : Singleton<GameManager>
         Dice.Instance.OnDiceRolled += HandleDiceRolled;
         // enable the dice and wait for the dice rolling event to continue the
         // player's turn
-
-        Debug.Log("Waiting for Dice Rolled event");
     }
 
     private void HandleDiceRolled(int rolledValue)
     {
         Dice.Instance.OnDiceRolled -= HandleDiceRolled;
-        Debug.Log("Got a " + rolledValue);
         StartCoroutine(MovePlayerCoroutine(rolledValue));
     }
 
